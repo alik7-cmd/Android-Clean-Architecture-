@@ -1,4 +1,6 @@
 package com.techascent.cleanarchitecture2.data.repo
 
-class GitRepoRepositoryImpl {
+import com.techascent.cleanarchitecture2.domain.repo.GitRepoRepository
+
+class GitRepoRepositoryImpl : GitRepoRepository {
 }
