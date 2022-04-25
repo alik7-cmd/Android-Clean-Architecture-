@@ -29,7 +29,7 @@ object NetworkModule {
         return Retrofit.Builder().apply {
             addConverterFactory(GsonConverterFactory.create())
             client(okHttp)
-            baseUrl(BuildConfig.BASE_URL)
+            baseUrl("https://api.github.com")
         }.build()
 
     }
