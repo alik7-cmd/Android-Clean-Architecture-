@@ -29,29 +29,28 @@ object NetworkModule {
         return Retrofit.Builder().apply {
             addConverterFactory(GsonConverterFactory.create())
             client(okHttp)
-            baseUrl("https://api.github.com")
+            baseUrl(BuildConfig.BASE_URL)
         }.build()
 
     }
 
     @Singleton
     @Provides
-    fun provideOkHttp() : OkHttpClient {
+    fun provideOkHttp(requestInterceptor: RequestInterceptor) : OkHttpClient {
         return OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
                 addInterceptor(HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
                 })
             }
-
             connectTimeout(60, TimeUnit.SECONDS)
             readTimeout(60, TimeUnit.SECONDS)
             writeTimeout(60, TimeUnit.SECONDS)
+            addInterceptor(requestInterceptor)
         }.build()
     }
 
     @Provides
-    @Singleton
     fun provideRequestInterceptor(prefs: SharedPrefs) : RequestInterceptor {
         return RequestInterceptor(prefs)
     }

@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -23,6 +24,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', "\"" + getServerUrl() + "\""
+            buildConfigField 'String', 'USER_NAME', "\"" + getGitUserName() + "\""
+        }
+
+        debug {
+            buildConfigField 'String', 'BASE_URL', "\"" + getServerUrl() + "\""
+            buildConfigField 'String', 'USER_NAME', "\"" + getGitUserName() + "\""
+
         }
     }
     compileOptions {
@@ -37,12 +46,42 @@ android {
     }
 }
 
+def getServerUrl() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    String key
+
+    key = properties.getProperty("server_url")
+
+    if (key == null) {
+        throw new GradleException("Add 'server_url' field at local.properties")
+    }
+
+    return key
+}
+
+def getGitUserName() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    String key
+
+    key = properties.getProperty("git_user_name")
+
+    if (key == null) {
+        throw new GradleException("Add 'git_user_name' field at local.properties")
+    }
+
+    return key
+}
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0-alpha04'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.0-alpha04'

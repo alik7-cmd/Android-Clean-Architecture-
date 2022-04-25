@@ -8,8 +8,7 @@ import okhttp3.Response
 class RequestInterceptor(val prefs: SharedPrefs) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val newRequest = chain.request().newBuilder()
-            .addHeader(ResponseHeader.X_KM_AUTH_TOKEN, prefs.getToken())
-            .addHeader(ResponseHeader.X_KM_REFRESH_TOKEN, prefs.getToken())
+            .addHeader(ResponseHeader.X_ACCESS, "application/vnd.github.v3+json")
             .build()
         return chain.proceed(newRequest)
     }

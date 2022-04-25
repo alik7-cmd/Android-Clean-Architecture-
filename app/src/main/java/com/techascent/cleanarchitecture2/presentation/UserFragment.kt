@@ -11,6 +11,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import com.techascent.cleanarchitecture2.BuildConfig
 import com.techascent.cleanarchitecture2.R
 import com.techascent.cleanarchitecture2.databinding.FragmentUserBinding
 import com.techascent.cleanarchitecture2.domain.user.entity.UserEntity
@@ -49,6 +50,7 @@ class UserFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnTryAgain.setOnClickListener(this)
+        binding.btnNext.setOnClickListener(this)
         observeViewModel()
     }
 
@@ -105,7 +107,11 @@ class UserFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_try_again ->{
-                mViewModel.getUser("alik7-cmd")
+                mViewModel.getUser(BuildConfig.USER_NAME)
+            }
+
+            R.id.btn_next ->{
+                navigate(UserFragmentDirections.actionFirstFragmentToSecondFragment())
             }
         }
     }

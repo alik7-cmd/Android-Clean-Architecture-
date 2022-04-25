@@ -20,8 +20,6 @@ class UserModule {
     fun provideUserRepository(userApiInterface: UserApiInterface) : UserRepository{
         return UserRepositoryImpl(userApiInterface)
     }
-
-
 }
 
 
