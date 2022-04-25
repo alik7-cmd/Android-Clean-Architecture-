@@ -107,7 +107,7 @@ class UserFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btn_try_again ->{
-                mViewModel.getUser(BuildConfig.USER_NAME)
+                mViewModel.getUser("alik7-cmd")
             }
 
             R.id.btn_next ->{
