@@ -1,8 +1,12 @@
 package com.techascent.cleanarchitecture2.data.user.dto
 
 import com.techascent.cleanarchitecture2.data.common.NetworkModule
+import com.techascent.cleanarchitecture2.data.user.UserLocalRepositoryImpl
 import com.techascent.cleanarchitecture2.data.user.UserRepositoryImpl
 import com.techascent.cleanarchitecture2.data.user.api.UserApiInterface
+import com.techascent.cleanarchitecture2.data.user.dao.RoomDBModule
+import com.techascent.cleanarchitecture2.data.user.dao.UserDao
+import com.techascent.cleanarchitecture2.domain.user.UserLocalRepository
 import com.techascent.cleanarchitecture2.domain.user.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -33,4 +37,14 @@ class UserServiceModule{
         return retrofit.create(UserApiInterface::class.java)
     }
 
+}
+
+@InstallIn(SingletonComponent::class)
+@Module(includes = [RoomDBModule::class])
+class LocalUserRepoModule{
+    @Provides
+    @Singleton
+    fun provideLocalUserRepo(dao: UserDao) : UserLocalRepository {
+        return UserLocalRepositoryImpl(dao)
+    }
 }
