@@ -1,7 +1,6 @@
 package com.techascent.cleanarchitecture2.data.common
 
 import android.content.Context
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.techascent.cleanarchitecture2.BuildConfig
 import com.techascent.cleanarchitecture2.SharedPrefs

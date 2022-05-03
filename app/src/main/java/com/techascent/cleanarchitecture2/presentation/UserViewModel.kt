@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.techascent.cleanarchitecture2.data.common.data.WrappedResponse
 import com.techascent.cleanarchitecture2.data.user.dto.User
 import com.techascent.cleanarchitecture2.domain.common.BaseResult
+import com.techascent.cleanarchitecture2.domain.common.UseCases
 import com.techascent.cleanarchitecture2.domain.user.entity.UserEntity
 import com.techascent.cleanarchitecture2.domain.user.usecase.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel @Inject constructor(val userUseCase: UserUseCase) : ViewModel() {
+class UserViewModel @Inject constructor(/*val userUseCase: UserUseCase*/ val useCase : UseCases) : ViewModel() {
 
     private val _uiState: MutableStateFlow<UserUiState> = MutableStateFlow(UserUiState.Init)
     val uiState: StateFlow<UserUiState> = _uiState
@@ -31,7 +32,7 @@ class UserViewModel @Inject constructor(val userUseCase: UserUseCase) : ViewMode
     fun getUser(username: String) {
 
         viewModelScope.launch {
-            userUseCase.execute(username).onStart {
+            useCase.userUseCase.execute(username).onStart {
                 setLoading()
             }.catch { exception ->
                 hideLoading()

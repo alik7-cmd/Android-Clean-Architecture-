@@ -2,6 +2,7 @@ package com.techascent.cleanarchitecture2.presentation
 
 import android.os.Looper
 import com.techascent.cleanarchitecture2.api.FakeUserApiService
+import com.techascent.cleanarchitecture2.domain.common.UseCases
 import com.techascent.cleanarchitecture2.domain.user.usecase.UserUseCase
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -34,8 +35,11 @@ class UserViewModelTest {
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
+    /*@Inject
+    lateinit var  userUseCase : UserUseCase*/
+
     @Inject
-    lateinit var  userUseCase : UserUseCase
+    lateinit var useCase : UseCases
 
 
     @BindValue
@@ -48,7 +52,8 @@ class UserViewModelTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        userViewModel = UserViewModel(userUseCase)
+        //userViewModel = UserViewModel(userUseCase)
+        userViewModel = UserViewModel(useCase)
     }
 
     @Test

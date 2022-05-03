@@ -1,3 +1,5 @@
+package com.techascent.cleanarchitecture2
+
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
