@@ -54,7 +54,7 @@ class RepoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mAdapter = RepoAdapter(listener)
-        mViewModel.loadRepos("alik7-cmd")
+        mViewModel.loadRepos("alik7!222-cmd")
         binding.rvRepoList.layoutManager = LinearLayoutManager(requireActivity())
         observeUiStateFlow()
     }

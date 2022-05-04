@@ -5,6 +5,7 @@ import com.techascent.cleanarchitecture2.data.repo.api.RepoApiInterface
 import com.techascent.cleanarchitecture2.data.repo.dto.Repos
 import com.techascent.cleanarchitecture2.data.repo.dto.ReposItem
 import com.techascent.cleanarchitecture2.domain.common.BaseResult
+import com.techascent.cleanarchitecture2.domain.common.Resource
 import com.techascent.cleanarchitecture2.domain.repo.GitRepoRepository
 import com.techascent.cleanarchitecture2.domain.repo.entity.RepoItemEntity
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,22 @@ class GitRepoRepositoryImpl @Inject constructor(private val repoApiInterface: Re
                 listOfRepos.add(entity)
             }
             emit(BaseResult.Success(listOfRepos))
+        }
+    }
+
+    override suspend fun getGitRepos1(
+        org: String,
+        queryMap: Map<String, String>
+    ): Flow<Resource<List<RepoItemEntity>>> {
+        return flow {
+            val repos = repoApiInterface.getRepos(org, queryMap)
+            val listOfRepos = mutableListOf<RepoItemEntity>()
+            repos.forEach {
+                val entity = RepoItemEntity(it.id, it.name, it.description, it.private, it.watchers_count, it.owner.avatar_url)
+                listOfRepos.add(entity)
+            }
+
+            emit(Resource.Success(listOfRepos))
         }
     }
 }

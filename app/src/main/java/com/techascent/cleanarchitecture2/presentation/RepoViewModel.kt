@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.techascent.cleanarchitecture2.data.common.data.WrappedListResponse
 import com.techascent.cleanarchitecture2.data.repo.dto.Repos
 import com.techascent.cleanarchitecture2.domain.common.BaseResult
+import com.techascent.cleanarchitecture2.domain.common.Resource
 import com.techascent.cleanarchitecture2.domain.repo.entity.RepoItemEntity
 import com.techascent.cleanarchitecture2.domain.repo.usecase.GitRepoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,6 +51,25 @@ class RepoViewModel @Inject constructor(private val useCase: GitRepoUseCase) : V
 
             }
         }
+
+        /*viewModelScope.launch {
+            useCase.execute1(org).onStart {
+                setLoading()
+
+            }.catch { ex ->
+                hideLoading()
+                _uiState.value = RepoUiState.ShowErrorMessage(ex.message.toString())
+
+            }.collect {
+
+                when(it){
+
+                    is Resource.Success -> _uiState.value = RepoUiState.Success(it.data ?: emptyList())
+                    is Resource.Error -> _uiState.value = RepoUiState.ShowErrorMessage(it.message ?: "")
+                }
+
+            }
+        }*/
     }
 }
 
