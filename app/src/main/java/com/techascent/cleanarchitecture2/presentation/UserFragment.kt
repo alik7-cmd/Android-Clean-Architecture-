@@ -11,7 +11,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import com.techascent.cleanarchitecture2.BuildConfig
 import com.techascent.cleanarchitecture2.R
 import com.techascent.cleanarchitecture2.databinding.FragmentUserBinding
 import com.techascent.cleanarchitecture2.domain.user.entity.UserEntity
@@ -55,7 +54,7 @@ class UserFragment : Fragment(), View.OnClickListener {
     }
 
     private fun observeViewModel(){
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             mViewModel.uiState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).onEach {
                 state -> handleUiState(state)
             }.launchIn(lifecycleScope)
